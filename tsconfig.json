@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "esNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "allowJs": true,
+    "checkJs": false,
+    "declaration": true,
+    "strict": true,
+    "outDir": "lib",
+    "removeComments": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "typeRoots": [
+      "node_modules/@types",
+      "src/types"
+    ],
+    "baseUrl": "./",
+    "paths": {
+      "firestore-migration/types/*": [
+        "./lib/src/types/*.js"
+      ],
+      "firestore-migration/utils/*": [
+        "./lib/src/utils/*.js"
+      ]
+    }
+  },
+  "include": ["src/**/*"]
+}
