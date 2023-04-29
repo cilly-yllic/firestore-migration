@@ -15,8 +15,8 @@
     "typeRoots": ["node_modules/@types", "src/types"],
     "baseUrl": "./",
     "paths": {
-      "firestore-migration/types/*": ["./lib/src/types/*.js"],
-      "firestore-migration/utils/*": ["./lib/src/utils/*.js"]
+      "alter-firestore/types/*": ["./lib/src/types/*.js"],
+      "alter-firestore/utils/*": ["./lib/src/utils/*.js"]
     }
   },
   "include": ["src/**/*"]

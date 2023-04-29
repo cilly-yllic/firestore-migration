@@ -39,7 +39,7 @@ aliasRoot.forEach(alias => {
     .map(() => '..')
     .join('/')
   const pkgManifest = {
-    name: `firestore-migration-${alias.split(/\//g).join('-')}`,
+    name: `alter-firestore-${alias.split(/\//g).join('-')}`,
     types: `${relative}/${PREFIX}/${alias}.d.ts`,
     main: `${relative}/${PREFIX}/${alias}.js`,
     sideEffects: false,

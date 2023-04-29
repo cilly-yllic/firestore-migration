@@ -1,12 +1,12 @@
 {
-  "name": "fsm",
+  "name": "alter-firestore",
   "type": "module",
   "version": "0.0.0",
   "description": "",
   "types": "./lib/src/cli/index.d.ts",
   "main": "./lib/src/cli/index.js",
   "bin": {
-    "fsm": "./lib/src/cli/index.js"
+    "alfs": "./lib/src/cli/index.js"
   },
   "scripts": {
     "prepare": "husky install",
@@ -16,14 +16,14 @@
     "build:publish": "npm run clean && tsc --build tsconfig.publish.json && npm run generate",
     "build:watch": "npm run build && tsc --watch",
     "lint": "eslint . --ext ts,tsx",
-    "clean": "rimraf ./lib"
+    "clean": "rimraf ./lib ./types ./utils"
   },
   "engines": {
     "node": "19.x"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/cilly-yllic/firestore-migration.git"
+    "url": "git+ssh://git@github.com/cilly-yllic/alter-firestore.git"
   },
   "keywords": [
     "cli",
@@ -33,9 +33,9 @@
   "author": "cilly",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cilly-yllic/firestore-migration/issues"
+    "url": "https://github.com/cilly-yllic/alter-firestore/issues"
   },
-  "homepage": "https://github.com/cilly-yllic/firestore-migration#readme",
+  "homepage": "https://github.com/cilly-yllic/alter-firestore#readme",
   "exports": {
     "./types/command": "./lib/src/types/*.js",
     "./utils/*": "./lib/src/utils/*.js",

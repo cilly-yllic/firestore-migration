@@ -1,4 +1,4 @@
-# firestore-migration
+# alter-firestore
 
 # .firebaserc
 
