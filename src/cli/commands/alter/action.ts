@@ -23,7 +23,7 @@ const getFilepath = (options: AlterOptions, settings: Settings) => {
 const execFiles = (app: AppClass, filePaths: string[]) => {
   return Promise.all(
     filePaths.map(async filepath => {
-      await execFile(app, filepath, 'up')
+      await execFile(app, filepath, 'exec')
     })
   )
 }

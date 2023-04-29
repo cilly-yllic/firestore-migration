@@ -10,11 +10,14 @@
   },
   "scripts": {
     "prepare": "husky install",
+    "build": "run-s build:{lint,clean,tsc,generate}",
+    "build:lint": "npm run lint",
+    "build:clean": "npm run clean",
+    "build:tsc": "npm run tsc",
+    "build:generate": "npm run generate",
     "prettier": "prettier --write .",
     "generate": "node ./tools/generate-alias.cjs",
-    "build": "npm run clean && tsc",
-    "build:publish": "npm run clean && tsc --build tsconfig.publish.json && npm run generate",
-    "build:watch": "npm run build && tsc --watch",
+    "tsc": "tsc --build tsconfig.publish.json",
     "lint": "eslint . --ext ts,tsx",
     "clean": "rimraf ./lib ./types ./utils"
   },
@@ -37,7 +40,7 @@
   },
   "homepage": "https://github.com/cilly-yllic/alter-firestore#readme",
   "exports": {
-    "./types/command": "./lib/src/types/*.js",
+    "./types/*": "./lib/src/types/*.js",
     "./utils/*": "./lib/src/utils/*.js",
     "./package.json": "./package.json"
   },
