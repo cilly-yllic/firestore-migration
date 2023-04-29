@@ -11,7 +11,7 @@ const bool = (val: string | undefined | boolean) => {
   return false
 }
 
-export const IS_DEBUG = bool(process.env.DEBUG) || args.includes("--debug")
+export const IS_DEBUG = bool(process.env.DEBUG) || args.includes('--debug')
 // export const IS_LOCAL = bool(process.env.IS_LOCAL)
 
 export const set = (env: Env, value: string | boolean | number) => {

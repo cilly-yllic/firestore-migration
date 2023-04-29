@@ -1,9 +1,12 @@
 import { existsSync } from 'fs'
+
 import admin from 'firebase-admin'
-import { get, ENVS } from './process.js'
-import { Settings } from '../types/settings.js'
-import { getFullPath } from './path.js'
+
 import { Options } from '../types/options.js'
+import { Settings } from '../types/settings.js'
+
+import { getFullPath } from './path.js'
+import { get, ENVS } from './process.js'
 
 export const init = (settings: Settings) => {
   if (!get(ENVS.IS_EMULATOR)) {
@@ -36,7 +39,7 @@ export const initializeApp = async (settings: Settings, options: Options) => {
     if (!existsSync(path)) {
       throw new Error('credential path does not exist.')
     }
-    const { default: credential } = await import(path, { assert: { type: "json" } })
+    const { default: credential } = await import(path, { assert: { type: 'json' } })
     return admin.initializeApp({ credential: admin.credential.cert(credential as any) })
   }
 }

@@ -1,11 +1,11 @@
-import { IS_DEBUG } from '../../../internal/utils/process.js'
-import { getFullPath } from '../../../internal/utils/path.js'
-import { AppClass } from '../../../internal/utils/app.js'
-import { FirestoreClass } from '../../../internal/utils/firestore.js'
 import { ActionArg } from '../../../internal/types/command.js'
-import { getFiles } from '../../../internal/utils/fs.js'
+import { AppClass } from '../../../internal/utils/app.js'
 import { get as getMigrations, create as createMigration } from '../../../internal/utils/firestore/migrations.js'
+import { FirestoreClass } from '../../../internal/utils/firestore.js'
+import { getFiles } from '../../../internal/utils/fs.js'
 import { bullet, table, labeledBullet } from '../../../internal/utils/log.js'
+import { getFullPath } from '../../../internal/utils/path.js'
+import { IS_DEBUG } from '../../../internal/utils/process.js'
 
 const replaceFilepath = (filepath: string, regExp: RegExp) => filepath.replace(regExp, '').replace(/\.[jt]s$/, '')
 
@@ -16,14 +16,13 @@ const getMigrationFiles = async (firestore: FirestoreClass) => {
   const filePaths = getFiles(fullPath)
   const FileRegExp = new RegExp(`^${fullPath}/`)
   return {
-    filePaths: filePaths
-      .filter(filepath => {
-        // const name = filepath.replace(FileRegExp, '').replace(/\.[jt]s$/, '')
-        const name = replaceFilepath(filepath, FileRegExp)
-        labeledBullet('name', name)
-        return migrations.every(migration => name !== migration.id)
-      }),
-    batch
+    filePaths: filePaths.filter(filepath => {
+      // const name = filepath.replace(FileRegExp, '').replace(/\.[jt]s$/, '')
+      const name = replaceFilepath(filepath, FileRegExp)
+      labeledBullet('name', name)
+      return migrations.every(migration => name !== migration.id)
+    }),
+    batch,
   }
 }
 
@@ -40,7 +39,7 @@ const execFiles = (app: AppClass, filePaths: string[], batch: number) => {
         app,
         firestore: app.firestore,
         settings: app.settings,
-        options: app.options
+        options: app.options,
       })
       labeledBullet('migrate', filepath)
       await createMigration(app.firestore, replaceFilepath(filepath, FileRegExp), batch)
@@ -48,7 +47,7 @@ const execFiles = (app: AppClass, filePaths: string[], batch: number) => {
   )
 }
 
-export const action = async ({ app, firestore, options, settings }: ActionArg) => {
+export const action = async ({ app, firestore, options: _, settings: __ }: ActionArg) => {
   const { filePaths, batch } = await getMigrationFiles(firestore)
   if (!filePaths.length) {
     bullet('nothing files to migrate')

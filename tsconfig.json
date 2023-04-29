@@ -12,18 +12,11 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "sourceMap": true,
-    "typeRoots": [
-      "node_modules/@types",
-      "src/types"
-    ],
+    "typeRoots": ["node_modules/@types", "src/types"],
     "baseUrl": "./",
     "paths": {
-      "firestore-migration/types/*": [
-        "./lib/src/types/*.js"
-      ],
-      "firestore-migration/utils/*": [
-        "./lib/src/utils/*.js"
-      ]
+      "firestore-migration/types/*": ["./lib/src/types/*.js"],
+      "firestore-migration/utils/*": ["./lib/src/utils/*.js"]
     }
   },
   "include": ["src/**/*"]

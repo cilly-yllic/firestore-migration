@@ -1,6 +1,10 @@
 {
-  "*.{js,jsx,ts,tsx,json,yml}": [
+  "*.{js,jsx,ts,tsx}": [
     "eslint",
+    "prettier --write",
+    "git add"
+  ],
+  "*.{json,yml}": [
     "prettier --write",
     "git add"
   ]
