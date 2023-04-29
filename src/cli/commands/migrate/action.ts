@@ -1,8 +1,9 @@
 import { ActionArg } from '../../../internal/types/command.js'
+import { MigrateOptions } from '../../../internal/types/options.js'
 import { AppClass } from '../../../internal/utils/app.js'
 import { get as getMigrations, create as createMigration } from '../../../internal/utils/firestore/migrations.js'
 import { FirestoreClass } from '../../../internal/utils/firestore.js'
-import { getFiles } from '../../../internal/utils/fs.js'
+import { getFiles, execFile } from '../../../internal/utils/fs.js'
 import { bullet, table, labeledBullet } from '../../../internal/utils/log.js'
 import { getFullPath } from '../../../internal/utils/path.js'
 import { IS_DEBUG } from '../../../internal/utils/process.js'
@@ -31,23 +32,13 @@ const execFiles = (app: AppClass, filePaths: string[], batch: number) => {
   const FileRegExp = new RegExp(`^${getFullPath(fileDirectoryPath)}/`)
   return Promise.all(
     filePaths.map(async filepath => {
-      const method = await import(filepath)
-      if (!method || !('exec' in method) || !(method.exec instanceof Function)) {
-        throw Error('migrate method might be not function.')
-      }
-      await method.exec({
-        app,
-        firestore: app.firestore,
-        settings: app.settings,
-        options: app.options,
-      })
-      labeledBullet('migrate', filepath)
+      await execFile(app, filepath, 'up')
       await createMigration(app.firestore, replaceFilepath(filepath, FileRegExp), batch)
     })
   )
 }
 
-export const action = async ({ app, firestore, options: _, settings: __ }: ActionArg) => {
+export const action = async ({ app, firestore, options: _, settings: __ }: ActionArg<MigrateOptions>) => {
   const { filePaths, batch } = await getMigrationFiles(firestore)
   if (!filePaths.length) {
     bullet('nothing files to migrate')
@@ -55,6 +46,7 @@ export const action = async ({ app, firestore, options: _, settings: __ }: Actio
   if (IS_DEBUG) {
     bullet(`--- migrationFiles: ${filePaths.length} ---`)
     table(filePaths)
+    return
   }
   return execFiles(app, filePaths, batch + 1)
 }

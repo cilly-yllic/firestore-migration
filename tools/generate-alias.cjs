@@ -1,8 +1,3 @@
-/**
- * Alias subpath import (`dist/cjs/*`) to top-level path mapping (`rxjs/*`)
- * Previously this was done by placing cjs to top-level package when it's published -
- * Now build uses `dist` as explicit output subpath so we generate top-level alias here instead.
- */
 const fsEx = require('fs-extra')
 const fs = require('fs')
 const path = require('path')
@@ -27,8 +22,6 @@ const regExp = new RegExp(`^${srcPath}/`)
 const aliasRoot = getFiles(srcPath)
   .map(path => path.replace(regExp, '').replace(/\.ts$/, ''))
   .filter(path => !/^internal|^cli|\.json$/.test(path))
-// const aliasRoot = ['converters/array', 'converters/obj', 'converters/string', 'color', 'copy', 'properties', 'types']
-console.log('aliasRoot', aliasRoot)
 aliasRoot
   .map(alias => path.resolve(__dirname, `../${alias}`))
   .forEach(alias => {

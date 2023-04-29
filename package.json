@@ -1,5 +1,5 @@
 {
-  "name": "firestore-migration",
+  "name": "fsm",
   "type": "module",
   "version": "0.0.0",
   "description": "",

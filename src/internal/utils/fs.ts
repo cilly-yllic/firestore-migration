@@ -1,5 +1,8 @@
 import { readdirSync, statSync } from 'fs'
 
+import { AppClass } from './app.js'
+import { labeledBullet } from './log.js'
+
 export const getFiles = (dir: string, _files: string[] = []) => {
   const files = readdirSync(dir)
   for (const file of files) {
@@ -11,4 +14,18 @@ export const getFiles = (dir: string, _files: string[] = []) => {
     }
   }
   return _files
+}
+
+export const execFile = async (app: AppClass, filepath: string, method: string) => {
+  const script = await import(filepath)
+  if (!script || !(method in script) || !(script[method] instanceof Function)) {
+    throw Error('migrate method might be not function.')
+  }
+  await script[method]({
+    app,
+    firestore: app.firestore,
+    settings: app.settings,
+    options: app.options,
+  })
+  labeledBullet('migrate', filepath)
 }

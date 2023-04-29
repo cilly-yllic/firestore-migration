@@ -18,7 +18,7 @@ export interface Settings {
   collectionName: string
   fileDirectoryPath: string
   aliases: {
-    [filepath: string]: string
+    [filepath: string]: string[]
   }
 }
 

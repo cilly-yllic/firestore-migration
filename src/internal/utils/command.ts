@@ -1,7 +1,7 @@
 import { Command as Program, HelpContext } from 'commander'
 
 import { Action, BeforeFunction, ActionArg } from '../types/command.js'
-import { Options } from '../types/options.js'
+import { DefaultOptions, DEFAULT_PROJECT } from '../types/options.js'
 import { Settings } from '../types/settings.js'
 
 import { AppClass } from './app.js'
@@ -9,17 +9,17 @@ import { initializeApp } from './initialize-app.js'
 import { ENVS, set } from './process.js'
 import { getSettings } from './settings.js'
 
-export class CommandClass {
+export class CommandClass<T extends DefaultOptions> {
   program!: Program
   private befores: BeforeFunction[] = []
-  private args!: ActionArg
+  private args!: ActionArg<T>
 
   constructor(program: Program) {
     this.program = program
   }
 
-  async init(options: Options, settings: Settings) {
-    set(ENVS.IS_EMULATOR, options.project === 'emulator')
+  async init(options: ActionArg<T>['options'], settings: Settings) {
+    set(ENVS.IS_EMULATOR, options.project ? options.project === DEFAULT_PROJECT : true)
     const app = await initializeApp(settings, options)
     const appClass = new AppClass(settings, options, app)
     this.args = {
@@ -36,24 +36,30 @@ export class CommandClass {
     return this
   }
 
-  help(help: HelpContext): CommandClass {
+  help(help: HelpContext): CommandClass<T> {
     this.program = this.program.help(help)
     return this
   }
 
-  before(before: Action, ...args: any[]): CommandClass {
+  before(before: Action, ...args: any[]): CommandClass<T> {
     this.befores.push({ fn: before, args: args })
     return this
   }
 
-  description(description: string): CommandClass {
+  description(description: string): CommandClass<T> {
     this.program = this.program.description(description)
     return this
   }
 
-  option(...args: any[]): CommandClass {
+  option(...args: any[]): CommandClass<T> {
     const flags = args.shift()
     this.program = this.program.option(flags, ...args)
+    return this
+  }
+
+  requiredOption(...args: any[]): CommandClass<T> {
+    const flags = args.shift()
+    this.program = this.program.requiredOption(flags, ...args)
     return this
   }
 

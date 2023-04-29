@@ -1,6 +1,7 @@
-.eslintrc.js
+.eslintrc.cjs
 package.json
 package-lock.json
-dist/
-./types/
+/lib
+/types
+/utils
 .lintstagedrc
