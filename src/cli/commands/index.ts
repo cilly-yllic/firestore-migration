@@ -4,6 +4,7 @@ const initCommand = async (filename: string, program: Program) => {
   ;(await import(`./${filename}/command.js`)).init(program)
 }
 export const init = async (program: Program) => {
-  await initCommand('migrate', program)
   await initCommand('alter', program)
+  await initCommand('generate', program)
+  await initCommand('migration', program)
 }

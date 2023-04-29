@@ -8,16 +8,17 @@ import { getFullPath } from '../../../internal/utils/path.js'
 import { IS_DEBUG } from '../../../internal/utils/process.js'
 
 const getFilepath = (options: AlterOptions, settings: Settings) => {
-  const targets = Object.entries(settings.aliases).reduce((acc: string[], [key, paths]) => {
+  const { directoryPath } = settings.alter
+  const targets = Object.entries(settings.alter.aliases).reduce((acc: string[], [key, paths]) => {
     if (key !== options.only) {
       return acc
     }
     for (const val of paths) {
-      acc.push(getFullPath(val))
+      acc.push(getFullPath(directoryPath, val))
     }
     return acc
   }, [])
-  return targets.length ? targets : [getFullPath(options.only)]
+  return targets.length ? targets : [getFullPath(directoryPath, options.only)]
 }
 
 const execFiles = (app: AppClass, filePaths: string[]) => {

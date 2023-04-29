@@ -1,4 +1,9 @@
 # alter-firestore
+## Description
+This npm package is a CLI that executes TypeScript files to manage Firestore migration or alteration processes within your repository.
+
+![demo-alter-firestore](https://user-images.githubusercontent.com/16274232/235307607-3103ce8c-cf5c-48b0-84ac-9639958ae6df.gif)
+
 ## installation
 
 ```bash
@@ -20,7 +25,8 @@ or
 ```
 then
 ```bash
-$ npm run alfs -- migrate --project staging 
+$ npm run alfs -- migrate --project staging
+$ npm run alfs -- migrate # default project will be emulator 
 ```
 
 ### set alfsrc.js
@@ -40,23 +46,57 @@ export default {
   credentialPaths: {
     '{this key use for --project option}': '' // ex: staging: './.envs/staging/firebase-admin-sdk.json'
   },
-  collectionName: "migrations", // <-- default
-  fileDirectoryPath: 'migrations-files', // <-- default ex: firestore/migrations/files
-  aliases: {
-     '{key}': [ '{filepath}']
+  migration: {
+    collectionName: "migrations", // <-- default
+    directoryPath: 'migrations-files', // <-- default ex: firestore/migrations/files
+  },
+  alter: {
+    directoryPath: 'alter-files', // <-- default ex: firestore/alters/files
+    aliases: {
+      '{key}': [ '{filepath}']
+    },
   }
 }
 ```
 
+## Migration File
+```ts
+import { ActionArg } from 'alter-firestore/types/command'
+import { MigrateOptions } from 'alter-firestore/types/options'
+
+export const up = async ({ firestore }: ActionArg<MigrateOptions>) => {
+  const snapshot = await firestore.getDoc('{path}', '{documentId}')
+  if (snapshot.exists) {
+    throw Error(`${'{path}'}${'{documentId}'}/${snapshot.id} is already exists`)
+  }
+  return firestore.create('{path}', '{documentId}', value)
+}
+```
+
+## Alter File
+```ts
+import { ActionArg } from 'alter-firestore/types/command'
+import { AlterOptions } from 'alter-firestore/types/options'
+
+export const exec = async ({ firestore }: ActionArg<AlterOptions>) => {
+  const snapshot = await firestore.getDoc('{path}', '{documentId}')
+  if (snapshot.exists) {
+    throw Error(`${'{path}'}${'{documentId}'}/${snapshot.id} is already exists`)
+  }
+  return firestore.create('{path}', '{documentId}', value)
+}
+```
+
 ## Commands
-| command | description                                                         |
-|---------|---------------------------------------------------------------------|
+| command | description                                                        |
+|---------|--------------------------------------------------------------------|
+| alter   | run target file                                                    |
+| generate | generate templates                                                 |
 | migrate | migrate firestore collection / document from target directory files |
-| alter   | run target file                                                     |
 
 
 ## Implementation Plan
 - clean migration
-- rollup
-- create templates
+- rollup migration
 - run migration without cli
+- enrich log

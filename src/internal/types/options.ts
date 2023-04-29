@@ -4,6 +4,20 @@ export interface AlterOptions {
   project?: string
   only: string
 }
+
+export const GENERATE_TYPES = {
+  alter: 'alter',
+  a: 'a',
+  migration: 'migration',
+  migrate: 'migrate',
+  m: 'm',
+} as const
+
+export type GenerateType = (typeof GENERATE_TYPES)[keyof typeof GENERATE_TYPES]
+export interface GenerateOptions {
+  type: GenerateType
+  name: string
+}
 export interface MigrateOptions {
   project?: string
 }

@@ -1,0 +1,20 @@
+import { ActionArg } from 'alter-firestore/types/command'
+import { AlterOptions } from 'alter-firestore/types/options'
+import { getServerTimestamp, getGeoPoint } from 'alter-firestore/utils/firestore'
+import { error } from 'alter-firestore/utils/log'
+
+const PATH = '{path}'
+const DOCUMENT_ID = '{documentId}'
+
+export const exec = async ({ app: _, firestore, options: ___, settings: ____ }: ActionArg<AlterOptions>) => {
+  const snapshot = await firestore.getDoc(PATH, DOCUMENT_ID)
+  if (snapshot.exists) {
+    error(`${PATH}${DOCUMENT_ID}/${snapshot.id} is already exists`)
+    throw Error(`${PATH}${DOCUMENT_ID}/${snapshot.id} is already exists`)
+  }
+  const data = {
+    geoPoint: getGeoPoint(0, 0),
+    createdAt: getServerTimestamp()
+  }
+  return firestore.create(PATH, DOCUMENT_ID, data)
+}

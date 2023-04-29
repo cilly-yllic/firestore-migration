@@ -8,7 +8,7 @@ export interface Migration {
 }
 
 export const getSnapshots = (firestore: FirestoreClass): Promise<CollectionSnapshot> =>
-  firestore.collection(firestore.settings.collectionName).get()
+  firestore.collection(firestore.settings.migration.collectionName).get()
 
 export const get = async (
   firestore: FirestoreClass
@@ -26,7 +26,7 @@ export const get = async (
 }
 
 export const create = (firestore: FirestoreClass, id: string, batch: number) =>
-  firestore.collection(firestore.settings.collectionName).doc(id).create({ batch, createdAt: new Date() })
+  firestore.collection(firestore.settings.migration.collectionName).doc(id).create({ batch, createdAt: new Date() })
 
 export const clear = async (firestore: FirestoreClass) => {
   const snapshots = await getSnapshots(firestore)

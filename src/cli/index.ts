@@ -10,7 +10,7 @@ program.version(pkg.version)
 await init(program)
 program.action((_, args) => {
   const cmd = args[0]
-  error(`${cmd} is not a Firebase command`)
+  error(`${cmd} is not a Alfs command`)
   error('')
   error(`${cmd} has been renamed, please run instead`)
   console.log('exit')

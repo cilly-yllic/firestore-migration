@@ -21,7 +21,7 @@ const regExp = new RegExp(`^${srcPath}/`)
 
 const aliasRoot = getFiles(srcPath)
   .map(path => path.replace(regExp, '').replace(/\.ts$/, ''))
-  .filter(path => !/^internal|^cli|\.json$/.test(path))
+  .filter(path => !/^internal|^cli|^templates|\.json$/.test(path))
 aliasRoot
   .map(alias => path.resolve(__dirname, `../${alias}`))
   .forEach(alias => {

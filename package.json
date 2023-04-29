@@ -1,7 +1,7 @@
 {
   "name": "alter-firestore",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "",
   "types": "./lib/src/cli/index.d.ts",
   "main": "./lib/src/cli/index.js",
@@ -10,16 +10,18 @@
   },
   "scripts": {
     "prepare": "husky install",
-    "build": "run-s build:{lint,clean,tsc,generate}",
+    "build": "run-s build:{lint,clean,tsc,copy,generate}",
     "build:lint": "npm run lint",
     "build:clean": "npm run clean",
+    "build:copy": "npm run copy",
     "build:tsc": "npm run tsc",
     "build:generate": "npm run generate",
     "prettier": "prettier --write .",
-    "generate": "node ./tools/generate-alias.cjs",
-    "tsc": "tsc --build tsconfig.publish.json",
     "lint": "eslint . --ext ts,tsx",
-    "clean": "rimraf ./lib ./types ./utils"
+    "clean": "rimraf ./lib ./types ./utils",
+    "tsc": "tsc --build tsconfig.publish.json",
+    "copy": "cp -R ./src/templates ./lib/src",
+    "generate": "node ./tools/generate-alias.cjs"
   },
   "engines": {
     "node": "19.x"

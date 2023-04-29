@@ -27,7 +27,6 @@ export const add = (db: Firestore, path: string, value: any) => db.collection(pa
 export const set = (db: Firestore, path: string, value: any) => db.doc(path).set(value)
 export const update = (db: Firestore, path: string, value: any) => db.doc(path).update(value)
 export const recursiveDelete = (db: Firestore, ref: DocumentReference | CollectionReference) => db.recursiveDelete(ref)
-export const getBatch = (db: Firestore) => db.batch()
 
 // ---- batch ----
 

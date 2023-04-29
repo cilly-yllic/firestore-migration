@@ -11,9 +11,9 @@ import { IS_DEBUG } from '../../../internal/utils/process.js'
 const replaceFilepath = (filepath: string, regExp: RegExp) => filepath.replace(regExp, '').replace(/\.[jt]s$/, '')
 
 const getMigrationFiles = async (firestore: FirestoreClass) => {
-  const { fileDirectoryPath } = firestore.settings
+  const { directoryPath } = firestore.settings.migration
   const { migrations, batch } = await getMigrations(firestore)
-  const fullPath = getFullPath(fileDirectoryPath)
+  const fullPath = getFullPath(directoryPath)
   const filePaths = getFiles(fullPath)
   const FileRegExp = new RegExp(`^${fullPath}/`)
   return {
@@ -28,8 +28,8 @@ const getMigrationFiles = async (firestore: FirestoreClass) => {
 }
 
 const execFiles = (app: AppClass, filePaths: string[], batch: number) => {
-  const { fileDirectoryPath } = app.settings
-  const FileRegExp = new RegExp(`^${getFullPath(fileDirectoryPath)}/`)
+  const { directoryPath } = app.settings.migration
+  const FileRegExp = new RegExp(`^${getFullPath(directoryPath)}/`)
   return Promise.all(
     filePaths.map(async filepath => {
       await execFile(app, filepath, 'up')

@@ -5,12 +5,15 @@ import { CommandClass } from '../../../internal/utils/command.js'
 
 import { action } from './action.js'
 
-export const init = (program: Program) => {
-  new CommandClass<AlterOptions>(program)
-    .command('alter')
-    .option('--project <project>', 'target project (default) emulator')
+const setAliases = (commandClass: CommandClass<AlterOptions>) => {
+  commandClass
+    .option('-p, --project <project>', 'target project (default) emulator')
     .requiredOption('--only <target>', 'alter target file')
     .action(options => {
       return action(options)
     })
+}
+export const init = (program: Program) => {
+  setAliases(new CommandClass<AlterOptions>(program).command('alter'))
+  setAliases(new CommandClass<AlterOptions>(program).command('a'))
 }

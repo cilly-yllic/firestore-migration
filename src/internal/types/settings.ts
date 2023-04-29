@@ -10,15 +10,22 @@ export interface Emulator {
   name: string
   ports: Ports
 }
+
+export interface Aliases {
+  [filepath: string]: string[]
+}
 export interface Settings {
   emulator: Emulator
   credentialPaths: {
     [project: string]: string
   }
-  collectionName: string
-  fileDirectoryPath: string
-  aliases: {
-    [filepath: string]: string[]
+  migration: {
+    collectionName: string
+    directoryPath: string
+  }
+  alter: {
+    directoryPath: string
+    aliases: Aliases
   }
 }
 
