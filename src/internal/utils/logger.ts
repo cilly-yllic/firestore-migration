@@ -2,7 +2,7 @@ import stripAnsi from 'strip-ansi'
 import { SPLAT } from 'triple-beam'
 import winston from 'winston'
 
-import { IS_DEBUG } from './process.js'
+import { get, ENVS } from './process.js'
 
 export function tryStringify(value: any) {
   if (typeof value === 'string') {
@@ -19,7 +19,8 @@ export function tryStringify(value: any) {
 const rawLogger = winston.createLogger()
 rawLogger.add(new winston.transports.Console({ silent: true }))
 
-if (IS_DEBUG) {
+// if (IS_DEBUG) {
+if (get(ENVS.IS_DEBUG)) {
   rawLogger.add(
     new winston.transports.Console({
       level: 'debug',

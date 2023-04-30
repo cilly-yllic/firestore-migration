@@ -9,6 +9,7 @@ import { digits } from '../../../internal/utils/converters/number.js'
 import { kebabCase } from '../../../internal/utils/converters/string.js'
 import { labeledSuccess, labeledBullet, table } from '../../../internal/utils/log.js'
 import { getFullPath } from '../../../internal/utils/path.js'
+import { ENVS, get } from '../../../internal/utils/process.js'
 
 const TEMPLATE_PATH = join(dirname(fileURLToPath(import.meta.url)), '../../../templates')
 const ALTER_TEMPLATE_NAME = 'alter.ts.template'
@@ -68,6 +69,9 @@ export const action = async ({ options, settings }: ActionArg<GenerateOptions>) 
         name: { Value: name },
         directoryPath: { Value: settings.alter.directoryPath },
       })
+      if (get(ENVS.IS_DEBUG)) {
+        return
+      }
       return generateAlterFile(options, settings)
     case GENERATE_TYPES.m:
     case GENERATE_TYPES.migrate:
@@ -77,6 +81,9 @@ export const action = async ({ options, settings }: ActionArg<GenerateOptions>) 
         name: { Value: name },
         directoryPath: { Value: settings.migration.directoryPath },
       })
+      if (get(ENVS.IS_DEBUG)) {
+        return
+      }
       return generateMigrationFile(options, settings)
   }
 }

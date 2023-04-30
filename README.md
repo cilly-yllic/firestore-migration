@@ -6,6 +6,14 @@ This npm package is a CLI that executes TypeScript files to manage Firestore mig
 
 ## installation
 
+**Please set the 'type' field in your package.json to 'module' since this package supports Pure ESM.**
+
+```json
+{
+  "type": "module"
+}
+```
+
 ```bash
 $ npm i alter-firestore
 ```
@@ -98,5 +106,5 @@ export const exec = async ({ firestore }: ActionArg<AlterOptions>) => {
 ## Implementation Plan
 - clean migration
 - rollup migration
-- run migration without cli
+- migrate without cli
 - enrich log

@@ -6,5 +6,6 @@ const initCommand = async (filename: string, program: Program) => {
 export const init = async (program: Program) => {
   await initCommand('alter', program)
   await initCommand('generate', program)
+  await initCommand('help', program)
   await initCommand('migration', program)
 }

@@ -6,7 +6,7 @@ import { FirestoreClass } from '../../../internal/utils/firestore.js'
 import { getFiles, execFile } from '../../../internal/utils/fs.js'
 import { bullet, table, labeledBullet } from '../../../internal/utils/log.js'
 import { getFullPath } from '../../../internal/utils/path.js'
-import { IS_DEBUG } from '../../../internal/utils/process.js'
+import { ENVS, get } from '../../../internal/utils/process.js'
 
 const replaceFilepath = (filepath: string, regExp: RegExp) => filepath.replace(regExp, '').replace(/\.[jt]s$/, '')
 
@@ -43,7 +43,7 @@ export const action = async ({ app, firestore, options: _, settings: __ }: Actio
   if (!filePaths.length) {
     bullet('nothing files to migrate')
   }
-  if (IS_DEBUG) {
+  if (get(ENVS.IS_DEBUG)) {
     bullet(`--- migrationFiles: ${filePaths.length} ---`)
     table(filePaths)
     return

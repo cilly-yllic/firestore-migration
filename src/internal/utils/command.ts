@@ -1,4 +1,4 @@
-import { Command as Program, HelpContext } from 'commander'
+import { Command as Program } from 'commander'
 
 import { Action, BeforeFunction, ActionArg } from '../types/command.js'
 import { DefaultOptions, DEFAULT_PROJECT } from '../types/options.js'
@@ -15,7 +15,7 @@ export class CommandClass<T extends DefaultOptions> {
   private args!: ActionArg<T>
 
   constructor(program: Program) {
-    this.program = program
+    this.program = program.option('-d, --debug', 'turn on debugging', false)
   }
 
   async init(options: ActionArg<T>['options'], settings: Settings) {
@@ -36,8 +36,11 @@ export class CommandClass<T extends DefaultOptions> {
     return this
   }
 
-  help(help: HelpContext): CommandClass<T> {
-    this.program = this.program.help(help)
+  help(helpTxt: string): CommandClass<T> {
+    this.program = this.program.on('--help', () => {
+      console.log()
+      console.log(helpTxt)
+    })
     return this
   }
 

@@ -5,7 +5,7 @@ import { AppClass } from '../../../internal/utils/app.js'
 import { execFile } from '../../../internal/utils/fs.js'
 import { bullet, table } from '../../../internal/utils/log.js'
 import { getFullPath } from '../../../internal/utils/path.js'
-import { IS_DEBUG } from '../../../internal/utils/process.js'
+import { ENVS, get } from '../../../internal/utils/process.js'
 
 const getFilepath = (options: AlterOptions, settings: Settings) => {
   const { directoryPath } = settings.alter
@@ -34,7 +34,7 @@ export const action = async ({ app, firestore: __, options, settings }: ActionAr
   if (!filePaths.length) {
     bullet('nothing files to alter')
   }
-  if (IS_DEBUG) {
+  if (get(ENVS.IS_DEBUG)) {
     bullet(`--- alter files: ${filePaths.length} ---`)
     table(filePaths)
     return

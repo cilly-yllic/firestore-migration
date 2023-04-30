@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 import { program } from 'commander'
 
-import pkg from '../../package.json' assert { type: 'json' }
+// import pkg from '../../package.json' assert { type: 'json' }
 import { error } from '../internal/utils/log.js'
+import { get, ENVS, init } from '../internal/utils/process.js'
 
-import { init } from './commands/index.js'
+import { init as initCommands } from './commands/index.js'
 
-program.version(pkg.version)
-await init(program)
+init()
+program.version(`${get(ENVS.PACKAGE_VERSION)}`)
+await initCommands(program)
 program.action((_, args) => {
   const cmd = args[0]
   error(`${cmd} is not a Alfs command`)
