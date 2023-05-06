@@ -7,13 +7,18 @@ import { action } from './action.js'
 
 const setAliases = (commandClass: CommandClass<AlterOptions>) => {
   commandClass
-    .option('-p, --project <project>', 'target project (default) emulator')
+    .description('This command is used to exec target file.')
+    .optionProject()
     .requiredOption('--only <target>', 'alter target file')
     .action(options => {
       return action(options)
     })
 }
+
+const commands = ['alter', 'a']
+
 export const init = (program: Program) => {
-  setAliases(new CommandClass<AlterOptions>(program).command('alter'))
-  setAliases(new CommandClass<AlterOptions>(program).command('a'))
+  for (const command of commands) {
+    setAliases(new CommandClass<AlterOptions>(program).command(command))
+  }
 }

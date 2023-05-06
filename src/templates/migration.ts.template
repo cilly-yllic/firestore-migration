@@ -1,5 +1,5 @@
 import { ActionArg } from 'alter-firestore/types/command'
-import { MigrateOptions } from 'alter-firestore/types/options'
+import { MigrateOptions, RefreshOptions } from 'alter-firestore/types/options'
 import { getServerTimestamp, getGeoPoint } from 'alter-firestore/utils/firestore'
 import { error } from 'alter-firestore/utils/log'
 
@@ -17,4 +17,13 @@ export const up = async ({ app: _, firestore, options: ___, settings: ____ }: Ac
     createdAt: getServerTimestamp()
   }
   return firestore.create(PATH, DOCUMENT_ID, data)
+}
+
+export const down = async ({ app: _, firestore, options: ___, settings: ____ }: ActionArg<RefreshOptions>) => {
+  const snapshot = await firestore.getDoc(PATH, DOCUMENT_ID)
+  if (!snapshot.exists) {
+    error(`${PATH}${DOCUMENT_ID}/${snapshot.id} is not exists`)
+    throw Error(`${PATH}${DOCUMENT_ID}/${snapshot.id} is not exists`)
+  }
+  return firestore.recursiveDelete(PATH, snapshot.ref)
 }

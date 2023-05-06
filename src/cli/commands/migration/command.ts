@@ -6,12 +6,18 @@ import { CommandClass } from '../../../internal/utils/command.js'
 import { action } from './action.js'
 
 const setAliases = (commandClass: CommandClass<MigrateOptions>) => {
-  commandClass.option('-p, --project <project>', 'target project (default) emulator').action(options => {
-    return action(options)
-  })
+  commandClass
+    .description('This command is used to migrate')
+    .optionProject()
+    .action(options => {
+      return action(options)
+    })
 }
+
+const commands = ['migration', 'migrate', 'm']
+
 export const init = (program: Program) => {
-  setAliases(new CommandClass<MigrateOptions>(program).command('generation'))
-  setAliases(new CommandClass<MigrateOptions>(program).command('migrate'))
-  setAliases(new CommandClass<MigrateOptions>(program).command('m'))
+  for (const command of commands) {
+    setAliases(new CommandClass<MigrateOptions>(program).command(command))
+  }
 }

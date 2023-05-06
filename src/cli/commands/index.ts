@@ -8,4 +8,6 @@ export const init = async (program: Program) => {
   await initCommand('generate', program)
   await initCommand('help', program)
   await initCommand('migration', program)
+  await initCommand('migration-refresh', program)
+  await initCommand('migration-rollback', program)
 }

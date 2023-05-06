@@ -19,3 +19,5 @@ export const getProjectRootPath = () => {
 }
 
 export const getFullPath = (...path: string[]) => join(getProjectRootPath(), ...path)
+export const replaceFilepath = (filepath: string, regExp: RegExp) =>
+  filepath.replace(regExp, '').replace(/\.[jt]s$/, '')

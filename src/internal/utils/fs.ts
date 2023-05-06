@@ -1,7 +1,7 @@
 import { readdirSync, statSync } from 'fs'
 
 import { AppClass } from './app.js'
-import { labeledBullet } from './log.js'
+import { labeledBullet, labeledSuccess } from './log.js'
 
 export const getFiles = (dir: string, _files: string[] = []) => {
   const files = readdirSync(dir)
@@ -17,6 +17,7 @@ export const getFiles = (dir: string, _files: string[] = []) => {
 }
 
 export const execFile = async (app: AppClass, filepath: string, method: string) => {
+  labeledBullet(method, filepath)
   const script = await import(filepath)
   if (!script || !(method in script) || !(script[method] instanceof Function)) {
     throw Error('migrate method might be not function.')
@@ -27,5 +28,5 @@ export const execFile = async (app: AppClass, filepath: string, method: string) 
     settings: app.settings,
     options: app.options,
   })
-  labeledBullet('migrate', filepath)
+  labeledSuccess(method, filepath)
 }

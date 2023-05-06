@@ -35,7 +35,6 @@ export const action = async ({ app, firestore: __, options, settings }: ActionAr
     bullet('nothing files to alter')
   }
   if (get(ENVS.IS_DEBUG)) {
-    bullet(`--- alter files: ${filePaths.length} ---`)
     table(filePaths)
     return
   }

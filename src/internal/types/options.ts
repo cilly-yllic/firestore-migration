@@ -22,6 +22,16 @@ export interface MigrateOptions {
   project?: string
 }
 
+export interface RollbackOptions {
+  project?: string
+  step?: number
+}
+
+export interface RefreshOptions {
+  project?: string
+  step?: number
+}
+
 export interface DefaultOptions {
   [key: string]: any
 }

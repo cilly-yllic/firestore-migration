@@ -15,7 +15,7 @@ export class CommandClass<T extends DefaultOptions> {
   private args!: ActionArg<T>
 
   constructor(program: Program) {
-    this.program = program.option('-d, --debug', 'turn on debugging', false)
+    this.program = program
   }
 
   async init(options: ActionArg<T>['options'], settings: Settings) {
@@ -32,7 +32,7 @@ export class CommandClass<T extends DefaultOptions> {
   }
 
   command(command: string) {
-    this.program = this.program.command(command)
+    this.program = this.program.command(command).option('-d, --debug', 'turn on debugging', false)
     return this
   }
 
@@ -57,6 +57,11 @@ export class CommandClass<T extends DefaultOptions> {
   option(...args: any[]): CommandClass<T> {
     const flags = args.shift()
     this.program = this.program.option(flags, ...args)
+    return this
+  }
+
+  optionProject(): CommandClass<T> {
+    this.program = this.program.option('-p, --project <project>', 'target project (default) emulator', 'emulator')
     return this
   }
 

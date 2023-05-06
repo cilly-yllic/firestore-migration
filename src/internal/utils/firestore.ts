@@ -26,6 +26,7 @@ export const create = (db: Firestore, path: string, id: string, value: any) => d
 export const add = (db: Firestore, path: string, value: any) => db.collection(path).add(value)
 export const set = (db: Firestore, path: string, value: any) => db.doc(path).set(value)
 export const update = (db: Firestore, path: string, value: any) => db.doc(path).update(value)
+export const deleteDoc = (db: Firestore, path: string) => db.doc(path).delete()
 export const recursiveDelete = (db: Firestore, ref: DocumentReference | CollectionReference) => db.recursiveDelete(ref)
 
 // ---- batch ----
@@ -78,6 +79,10 @@ export class FirestoreClass extends BatchClass {
 
   update(path: string, value: any) {
     return update(this.firestore, path, value)
+  }
+
+  delete(path: string) {
+    return deleteDoc(this.firestore, path)
   }
 
   recursiveDelete(path: string, ref: DocumentReference | CollectionReference) {

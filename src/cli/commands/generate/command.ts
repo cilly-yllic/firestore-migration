@@ -7,6 +7,7 @@ import { action } from './action.js'
 
 const setAliases = (commandClass: CommandClass<GenerateOptions>) => {
   commandClass
+    .description('This command is used to generate template file.')
     .requiredOption('-t, --type <file-type>', 'alter, a, migrate, migration, m')
     .requiredOption('-n, --name <filename>', 'filename')
     .action(options => {
@@ -14,7 +15,10 @@ const setAliases = (commandClass: CommandClass<GenerateOptions>) => {
     })
 }
 
+const commands = ['generate', 'g']
+
 export const init = (program: Program) => {
-  setAliases(new CommandClass<GenerateOptions>(program).command('generate'))
-  setAliases(new CommandClass<GenerateOptions>(program).command('g'))
+  for (const command of commands) {
+    setAliases(new CommandClass<GenerateOptions>(program).command(command))
+  }
 }

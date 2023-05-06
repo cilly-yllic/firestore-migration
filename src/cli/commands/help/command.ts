@@ -6,11 +6,15 @@ import { CommandClass } from '../../../internal/utils/command.js'
 import { action } from './action.js'
 
 const setAliases = (commandClass: CommandClass<AlterOptions>) => {
-  commandClass.action(options => {
+  commandClass.description('This command is used to show help').action(options => {
     return action(options)
   })
 }
+
+const commands = ['help', 'h']
+
 export const init = (program: Program) => {
-  setAliases(new CommandClass<AlterOptions>(program).command('help'))
-  setAliases(new CommandClass<AlterOptions>(program).command('h'))
+  for (const command of commands) {
+    setAliases(new CommandClass<AlterOptions>(program).command(command))
+  }
 }

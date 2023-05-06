@@ -132,3 +132,5 @@ dist
 lib
 /types
 /utils
+
+.idea
