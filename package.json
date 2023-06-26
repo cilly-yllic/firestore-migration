@@ -1,7 +1,7 @@
 {
   "name": "alter-firestore",
   "type": "module",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "types": "./lib/src/cli/index.d.ts",
   "main": "./lib/src/cli/index.js",
@@ -24,7 +24,7 @@
     "generate": "node ./tools/generate-alias.cjs"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=19.0.0 <20.0.0"
   },
   "repository": {
     "type": "git",
