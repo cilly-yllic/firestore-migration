@@ -43,7 +43,7 @@ $ npm run alfs -- migrate --project staging
 $ npm run alfs -- migrate # default project will be emulator
 ```
 
-### set alfsrc.js
+### set .alfsrc.js
 
 ```js
 export default {
