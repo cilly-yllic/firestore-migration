@@ -19,6 +19,8 @@ export const documentPath = (...segments: string[]) => segments.join('/')
 export const getFirestore = () => admin.firestore()
 export const collectionGroup = (db: Firestore, path: string) => db.collectionGroup(path)
 export const collection = (db: Firestore, path: string) => db.collection(path)
+export const listCollections = (db: Firestore, path: string) =>
+  path ? db.doc(path).listCollections() : db.listCollections()
 export const getCollection = (db: Firestore, path: string) => collection(db, path).get()
 export const getCollectionGroup = (db: Firestore, path: string) => collectionGroup(db, path).get()
 export const getDoc = (db: Firestore, path: string, id: string) => db.collection(path).doc(id).get()
@@ -51,6 +53,10 @@ export class FirestoreClass extends BatchClass {
 
   collection(path: string) {
     return collection(this.firestore, path)
+  }
+
+  listCollections(path: string = '') {
+    return listCollections(this.firestore, path)
   }
 
   getCollection(path: string) {
