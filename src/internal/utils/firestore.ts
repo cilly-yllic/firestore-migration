@@ -91,7 +91,7 @@ export class FirestoreClass extends BatchClass {
     return deleteDoc(this.firestore, path)
   }
 
-  recursiveDelete(path: string, ref: DocumentReference | CollectionReference) {
+  recursiveDelete(ref: DocumentReference | CollectionReference) {
     return recursiveDelete(this.firestore, ref)
   }
 }
