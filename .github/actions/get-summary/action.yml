@@ -1,0 +1,12 @@
+name: 'getSummary'
+description: 'get summary of latest tag'
+inputs:
+  previous-tag:
+    description: 'previous tag'
+    required: true
+outputs:
+  summary:
+    description: 'summary'
+runs:
+  using: 'node16'
+  main: 'index.js'

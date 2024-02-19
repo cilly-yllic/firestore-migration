@@ -1,0 +1,70 @@
+name: Test Build and Lint
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches-ignore: [main]
+
+env:
+  NODE_VERSION_FILE: .nvmrc
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ${{ env.NODE_VERSION_FILE }}
+
+      - name: Cache node modules
+        uses: actions/cache@v4
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - run: npm ci
+  build-check:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Setup Root Node Version
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ${{ env.NODE_VERSION_FILE }}
+
+      - name: Install Packages
+        run: npm ci
+
+      - name: Build test
+        run: npm run publish:build
+
+  lint-check:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Setup Root Node Version
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ${{ env.NODE_VERSION_FILE }}
+
+      - name: Install Packages
+        run: npm ci
+
+      - name: List test
+        run: npm run lint
