@@ -29,7 +29,7 @@ const regExp = new RegExp(`^${srcPath}/`)
 
 const aliasRoot = getFiles(srcPath)
   .map(path => path.replace(regExp, '').replace(/\.ts$/, ''))
-  .filter(path => !/^internal|\.json$/.test(path))
+  .filter(path => !/^internal|^cli|^templates|\.json$/.test(path))
 aliasRoot
   .map(alias => path.resolve(__dirname, `../${alias}`))
   .forEach(alias => {
@@ -39,7 +39,7 @@ aliasRoot
     fsEx.ensureDirSync(alias)
   })
 
-const PREFIX = 'lib'
+const PREFIX = 'lib/src'
 
 aliasRoot.forEach(alias => {
   const relative = alias
@@ -47,7 +47,7 @@ aliasRoot.forEach(alias => {
     .map(() => '..')
     .join('/')
   const pkgManifest = {
-    name: `${name.replace(/\//g, '-')}/${alias.split(/\//g).join('-')}`,
+    name: `${name.replace(/\//g, '-')}-${alias.split(/\//g).join('-')}`,
     types: `${relative}/${PREFIX}/${alias}.d.ts`,
     main: `${relative}/${PREFIX}/${alias}.js`,
     sideEffects: false,

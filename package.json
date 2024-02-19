@@ -1,7 +1,7 @@
 {
   "name": "alter-firestore",
   "type": "module",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Manage Firestore migration or alteration.",
   "types": "./lib/src/cli/index.d.ts",
   "main": "./lib/src/cli/index.js",
@@ -18,7 +18,7 @@
     "clean": "rimraf ./lib ./types ./utils",
     "tsc": "tsc --build tsconfig.publish.json",
     "copy": "cp -R ./src/templates ./lib/src",
-    "generate": "node ./tools/generate-alias.cjs",
+    "generate": "node ./scripts/generate-alias.cjs",
     "ci:update-version": "tsx ./scripts/ci/update-version.ts",
     "//--- test ---//": "",
     "test": "run-s test:*",
