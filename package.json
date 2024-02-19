@@ -18,7 +18,7 @@
     "clean": "rimraf ./lib ./types ./utils",
     "tsc": "tsc --build tsconfig.publish.json",
     "copy": "cp -R ./src/templates ./lib/src",
-    "generate": "node ./tools/generate-alias.cjs",
+    "generate": "node ./scripts/generate-alias.cjs",
     "ci:update-version": "tsx ./scripts/ci/update-version.ts",
 
     "//--- test ---//": "",
