@@ -1,7 +1,7 @@
 {
   "name": "alter-firestore",
   "type": "module",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Manage Firestore migration or alteration.",
   "types": "./lib/src/cli/index.d.ts",
   "main": "./lib/src/cli/index.js",
