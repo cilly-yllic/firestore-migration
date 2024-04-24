@@ -56,7 +56,7 @@ jobs:
         id: get-tag-name
 
       - id: tag-name
-        run: echo "::set-output name=value::${{ steps.get-tag-name.outputs.tag-name }}"
+        run: echo "value=${{ steps.get-tag-name.outputs.tag-name }}" >> $GITHUB_OUTPUT
 
   create-pr:
     runs-on: ubuntu-latest
@@ -74,7 +74,7 @@ jobs:
           latestTag=$(git tag -l --no-merged staging --sort=-creatordate | sed -n 1p) || true
           firstTag=$(git tag -l '*+stg' --sort=creatordate | sed -n 1p) || true
           previousTag=${latestTag:-$firstTag}
-          echo ::set-output name=tag::$previousTag
+          echo "tag=$previousTag" >> $GITHUB_OUTPUT
 
       - name: Use Node.js
         uses: actions/setup-node@v4
@@ -105,7 +105,7 @@ jobs:
         id: check-pr
         run: |
           MAIN=$(gh pr list -B main)
-          echo ::set-output name=exists::$MAIN
+          echo "exists=$MAIN" >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
