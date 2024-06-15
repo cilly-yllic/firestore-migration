@@ -1,11 +1,16 @@
-import pkg from '../../../package.json' assert { type: 'json' }
+import { join } from 'path'
+
 import { Env, ENVS } from '../types/process.js'
+
+import { readJsonFileSync } from './fs.js'
 
 export * from '../types/process.js'
 
+const __dirname = import.meta.dirname
 export const args = process.argv.slice(2)
 
 export const init = () => {
+  const pkg = readJsonFileSync(join(__dirname, '../../..', 'package.json')) as { version: string }
   set(ENVS.PACKAGE_VERSION, pkg.version)
   set(ENVS.IS_DEBUG, bool(process.env.DEBUG) || args.includes('--debug'))
 }
