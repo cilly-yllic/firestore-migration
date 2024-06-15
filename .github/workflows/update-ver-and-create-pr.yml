@@ -104,19 +104,20 @@ jobs:
       - name: PR Check
         id: check-pr
         run: |
-          MAIN=$(gh pr list -B main)
-          echo "exists=$MAIN" >> $GITHUB_OUTPUT
+          MAIN_PR=$(gh pr list -B main --author "@me")
+          [[ -z $MAIN_PR ]] && EXISTS="false" || EXISTS="true"
+          echo "exists=$EXISTS" >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Release PR
-        if: steps.check-pr.outputs.exists == ''
+        if: steps.check-pr.outputs.exists == 'false'
         run: gh pr create -B "main" -t "Release ${{ needs.update-version.outputs.tag-name }}" -b "${{steps.get-summary.outputs.summary}}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Edit Release PR
-        if: steps.check-pr.outputs.exists != ''
+        if: steps.check-pr.outputs.exists == 'true'
         run: gh pr edit -B "main" -t "Release ${{ needs.update-version.outputs.tag-name }}" -b "${{steps.get-summary.outputs.summary}}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
