@@ -96,8 +96,12 @@
     "typescript-eslint": "^7.13.0"
   },
   "files": [
+    "!**/__tests__",
     "dist",
     "types",
-    "utils"
+    "utils",
+    "src",
+    "package.json",
+    "tsconfig.json"
   ]
 }
