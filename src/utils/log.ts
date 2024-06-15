@@ -1,1 +1,1 @@
-export * from '../internal/utils/log.js'
+export * from '../_internal/utils/log.js'

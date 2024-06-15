@@ -1,2 +1,2 @@
-export * from '../internal/types/firestore.js'
-export { FirestoreClass } from '../internal/utils/firestore.js'
+export * from '../_internal/types/firestore.js'
+export { FirestoreClass } from '../_internal/utils/firestore.js'

@@ -1,3 +1,4 @@
+import { FlatCompat } from '@eslint/eslintrc'
 import eslint from '@eslint/js'
 import tseslint from 'typescript-eslint'
 import prettier from 'eslint-config-prettier'
@@ -9,6 +10,8 @@ import unusedImportsPlugin from 'eslint-plugin-unused-imports'
 import typescriptEslint from '@typescript-eslint/eslint-plugin'
 import typescriptParser from '@typescript-eslint/parser'
 import jestPlugin from 'eslint-plugin-jest'
+
+const compat = new FlatCompat()
 
 const browser = {}
 for (const [key, value] of Object.entries(globals.browser)) {
@@ -26,15 +29,16 @@ export default tseslint.config(
   },
   {
     ignores: [
-      'lib/**',
+      'dist/**',
       '**/*.json',
       '**/*.yml',
       '**/*.js',
       '**/*.cjs',
       '**/*.mjs',
-      '/types/**',
-      '/utils/**',
+      'jest.config.ts',
+      '**/*.spec.ts',
       '/src/templates/**',
+      '/tools/**',
     ],
   },
   {
@@ -43,11 +47,12 @@ export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
   prettier,
+  ...compat.extends('plugin:import/typescript'),
   {
     languageOptions: {
       parser: typescriptParser,
       parserOptions: {
-        project: 'tsconfig.spec.json',
+        project: 'tsconfig.eslint.json',
         tsconfigRootDir: import.meta.dirname,
       },
       ecmaVersion: 'latest',
@@ -69,7 +74,6 @@ export default tseslint.config(
   },
   {
     rules: {
-      'import/extensions': ['error', 'always'],
       'unused-imports/no-unused-imports': 'error',
       'unused-imports/no-unused-vars': [
         'warn',

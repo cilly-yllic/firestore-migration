@@ -34,7 +34,7 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      - run: npm ci --omit=dev --ignore-scripts
+      - run: npm ci --ignore-scripts
       - run: npm i -D tsx
       - run: npm run ci:update-version
 

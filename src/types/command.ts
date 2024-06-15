@@ -1,1 +1,1 @@
-export * from '../internal/types/command.js'
+export * from '../_internal/types/command.js'

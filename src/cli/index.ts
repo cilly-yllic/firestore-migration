@@ -2,8 +2,8 @@
 import { program } from 'commander'
 
 // import pkg from '../../package.json' assert { type: 'json' }
-import { error } from '../internal/utils/log.js'
-import { get, ENVS, init } from '../internal/utils/process.js'
+import { error } from '../_internal/utils/log.js'
+import { get, ENVS, init } from '../_internal/utils/process.js'
 
 import { init as initCommands } from './commands/index.js'
 
