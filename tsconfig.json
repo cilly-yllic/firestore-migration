@@ -2,12 +2,14 @@
   "compilerOptions": {
     "target": "esNext",
     "module": "NodeNext",
+    "types": ["jest", "node"],
     "moduleResolution": "NodeNext",
     "allowJs": true,
     "checkJs": false,
     "declaration": true,
     "strict": true,
-    "outDir": "lib",
+    "outDir": "dist",
+    "rootDir": "./src",
     "removeComments": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
@@ -16,9 +18,10 @@
     "typeRoots": ["node_modules/@types", "src/types"],
     "baseUrl": "./",
     "paths": {
-      "alter-firestore/types/*": ["./lib/src/types/*.js"],
-      "alter-firestore/utils/*": ["./lib/src/utils/*.js"]
+      "alter-firestore/types/*": ["./dist/src/types/*.js"],
+      "alter-firestore/utils/*": ["./dist/src/utils/*.js"]
     }
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.spec.ts", "src/**/__tests__/**"]
 }

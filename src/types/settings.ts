@@ -1,1 +1,1 @@
-export * from '../internal/types/settings.js'
+export * from '../_internal/types/settings.js'

@@ -7,4 +7,4 @@ export {
   addToArray,
   deleteField,
   documentPath,
-} from '../internal/utils/firestore.js'
+} from '../_internal/utils/firestore.js'
