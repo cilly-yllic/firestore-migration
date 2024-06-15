@@ -3,10 +3,10 @@
   "type": "module",
   "version": "2.1.0",
   "description": "Manage Firestore migration or alteration.",
-  "types": "./dist/src/cli/index.d.ts",
-  "main": "./dist/src/cli/index.js",
+  "types": "./dist/cli/index.d.ts",
+  "main": "./dist/cli/index.js",
   "bin": {
-    "alfs": "./dist/src/cli/index.js"
+    "alfs": "./dist/cli/index.js"
   },
   "scripts": {
     "prepare": "husky",
@@ -17,7 +17,7 @@
     "lint:fix": "npm run lint -- --fix",
     "clean": "rimraf ./dist ./types ./utils",
     "tsc": "tsc --build tsconfig.publish.json",
-    "copy": "cp -R ./src/templates ./dist/src",
+    "copy": "mkdir -p dist/templates && cp -R ./src/templates/* ./dist/templates",
     "generate": "tsx --tsconfig ./tsconfig.zx.json ./tools/generate-alias.zx.ts",
     "ci:update-version": "tsx --tsconfig ./tsconfig.zx.json ./tools/update-version.zx.ts",
 
