@@ -1,9 +1,9 @@
 import { cyan } from 'colorette'
 
-import { ActionArg } from '../../../internal/types/command.js'
-import { AlterOptions } from '../../../internal/types/options.js'
-import { logger } from '../../../internal/utils/logger.js'
-import { get, ENVS } from '../../../internal/utils/process.js'
+import { ActionArg } from '../../../_internal/types/command.js'
+import { AlterOptions } from '../../../_internal/types/options.js'
+import { logger } from '../../../_internal/utils/logger.js'
+import { get, ENVS } from '../../../_internal/utils/process.js'
 
 const ASCII_ART = `
      ___   _       _____   _____

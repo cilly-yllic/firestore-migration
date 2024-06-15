@@ -1,8 +1,8 @@
-import { ActionArg } from '../../../internal/types/command.js'
-import { MigrateOptions } from '../../../internal/types/options.js'
-import { up, getFilePaths } from '../../../internal/utils/command/migration.js'
-import { bullet, table } from '../../../internal/utils/log.js'
-import { ENVS, get } from '../../../internal/utils/process.js'
+import { ActionArg } from '../../../_internal/types/command.js'
+import { MigrateOptions } from '../../../_internal/types/options.js'
+import { up, getFilePaths } from '../../../_internal/utils/command/migration.js'
+import { bullet, table } from '../../../_internal/utils/log.js'
+import { ENVS, get } from '../../../_internal/utils/process.js'
 
 export const action = async ({ app, firestore, options: _, settings: __ }: ActionArg<MigrateOptions>) => {
   const { filePaths, batch } = await getFilePaths(firestore)

@@ -1,11 +1,11 @@
-import { ActionArg } from '../../../internal/types/command.js'
-import { AlterOptions } from '../../../internal/types/options.js'
-import { Settings } from '../../../internal/types/settings.js'
-import { AppClass } from '../../../internal/utils/app.js'
-import { execFile } from '../../../internal/utils/fs.js'
-import { bullet, table } from '../../../internal/utils/log.js'
-import { getFullPath } from '../../../internal/utils/path.js'
-import { ENVS, get } from '../../../internal/utils/process.js'
+import { ActionArg } from '../../../_internal/types/command.js'
+import { AlterOptions } from '../../../_internal/types/options.js'
+import { Settings } from '../../../_internal/types/settings.js'
+import { AppClass } from '../../../_internal/utils/app.js'
+import { execFile } from '../../../_internal/utils/fs.js'
+import { bullet, table } from '../../../_internal/utils/log.js'
+import { getFullPath } from '../../../_internal/utils/path.js'
+import { ENVS, get } from '../../../_internal/utils/process.js'
 
 const getFilepath = (options: AlterOptions, settings: Settings) => {
   const { directoryPath } = settings.alter
