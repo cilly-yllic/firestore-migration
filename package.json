@@ -55,8 +55,8 @@
   },
   "homepage": "https://github.com/cilly-yllic/alter-firestore#readme",
   "exports": {
-    "./types/*": "./dist/src/types/*.js",
-    "./utils/*": "./dist/src/utils/*.js",
+    "./types/*": "./dist/types/*.js",
+    "./utils/*": "./dist/utils/*.js",
     "./package.json": "./package.json"
   },
   "dependencies": {
