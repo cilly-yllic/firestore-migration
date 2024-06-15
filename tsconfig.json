@@ -18,8 +18,8 @@
     "typeRoots": ["node_modules/@types", "src/types"],
     "baseUrl": "./",
     "paths": {
-      "alter-firestore/types/*": ["./dist/src/types/*.js"],
-      "alter-firestore/utils/*": ["./dist/src/utils/*.js"]
+      "alter-firestore/types/*": ["./dist/types/*.js"],
+      "alter-firestore/utils/*": ["./dist/utils/*.js"]
     }
   },
   "include": ["src/**/*"],
