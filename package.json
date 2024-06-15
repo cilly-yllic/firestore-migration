@@ -1,7 +1,7 @@
 {
   "name": "alter-firestore",
   "type": "module",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Manage Firestore migration or alteration.",
   "types": "./dist/src/cli/index.d.ts",
   "main": "./dist/src/cli/index.js",
@@ -20,7 +20,6 @@
     "copy": "cp -R ./src/templates ./dist/src",
     "generate": "tsx --tsconfig ./tsconfig.zx.json ./tools/generate-alias.zx.ts",
     "ci:update-version": "tsx --tsconfig ./tsconfig.zx.json ./tools/update-version.zx.ts",
-
     "//--- test ---//": "",
     "test": "run-s test:*",
     "test:lint": "npm run lint",
@@ -33,7 +32,6 @@
     "build:copy": "npm run copy",
     "build:generate": "npm run generate",
     "//--- publish ---//": "",
-
     "publish:build": "run-s build:{clean,tsc,generate}"
   },
   "engines": {
@@ -91,7 +89,7 @@
     "prettier": "^3.2.5",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
-    "tsx": "^4.7.2",
+    "tsx": "^4.15.5",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.7.1"
   },
