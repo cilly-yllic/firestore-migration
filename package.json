@@ -1,7 +1,7 @@
 {
   "name": "alter-firestore",
   "type": "module",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "description": "Manage Firestore migration or alteration.",
   "types": "./dist/cli/index.d.ts",
   "main": "./dist/cli/index.js",
@@ -24,7 +24,6 @@
     "test": "run-s test:*",
     "test:lint": "npm run lint",
     "test:prettier": "npm run prettier:check",
-
     "//--- build ---//": "",
     "build": "run-s build:*",
     "build:test": "npm run test",
@@ -32,7 +31,6 @@
     "build:tsc": "npm run tsc",
     "build:copy": "npm run copy",
     "build:generate": "npm run generate",
-
     "//--- publish ---//": "",
     "publish:build": "run-s build:{clean,tsc,generate}"
   },
