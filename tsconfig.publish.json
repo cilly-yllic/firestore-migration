@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "module": "NodeNext",
     "sourceMap": false
   },
   "exclude": ["src/**/*.spec.ts", "src/**/__tests__/**"]
